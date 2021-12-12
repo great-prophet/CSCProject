@@ -9,7 +9,6 @@ class Reader:
         self.covid_canada_data_path = covid_canada_data_path
         self.covid_us_data_path = covid_us_data_path
 
-
     def load_tweet_data(self) -> list[tuple[datetime.date, str]]:
         """Return a list of tuples containing dates and relevant tweets.
 
@@ -18,18 +17,32 @@ class Reader:
         itself.
         """
         tweets = []
+        na = ['canada', 'us', 'seattle', 'vancouver', 'toronto', 'california',
+              'alabama', 'alaska', 'american samoa', 'arizona', 'arkansas', 'california', 'colorado', 'connecticut',
+              'belaware',
+              'district of columbia', 'florida', 'georgia', 'guam', 'hawaii', 'idaho', 'illinois', 'indiana', 'iowa',
+              'kansas',
+              'kentucky', 'louisiana', 'maine', 'maryland', 'massachusetts', 'michigan', 'minnesota',
+              'minor outlying islands',
+              'mississippi', 'missouri', 'montana', 'nebraska', 'nevada', 'new hampshire', 'new jersey', 'new mexico',
+              'new york', 'north carolina', 'north dakota', 'northern mariana islands', 'ohio', 'oklahoma', 'oregon',
+              'pennsylvania', 'puerto rico', 'rhode island', 'south carolina', 'south dakota', 'tennessee', 'texas',
+              'u.s. virgin islands', 'utah', 'vermont', 'virginia', 'washington', 'west virginia', 'wisconsin',
+              'wyoming',
+              'alberta', 'british columbia', 'manitoba', 'new brunswick', 'newfoundland and labrador',
+              'northwest territories',
+              'nova scotia', 'nunavut', 'ontario', 'prince edward island', 'quebec', 'saskatchewan', 'yukon']
 
         with open(self.tweets_data_path, encoding='utf-8') as f:
             reader = csv.reader(f, delimiter=',')
             next(reader)  # skip the header
 
             for row in reader:
-                if 'canada' in row[1].lower() or 'us' in row[1].lower():
+                if row[1].lower() in na:
                     date = datetime.date(int(row[8][0:4]), int(row[8][5:7]), int(row[8][8:10]))
                     tweet = row[9]
                     tweets.append((date, tweet))
         return tweets
-
 
     def load_cases_data(self) -> list[tuple[datetime.date, int]]:
         """Return a list of tuples containing dates and North American case counts.
@@ -40,6 +53,7 @@ class Reader:
         column has the confirmed cases.
         """
         cases = {}
+        previous_date = datetime.date(2020, 1, 30)
         with open(self.covid_canada_data_path) as f:
             reader = csv.reader(f, delimiter=',')
             next(reader)  # skip the header
@@ -47,8 +61,13 @@ class Reader:
             for row in reader:
                 if 'Canada' in str(row[1]):
                     date = datetime.date(int(row[3][0:4]), int(row[3][5:7]), int(row[3][8:10]))
+                    timediff = date - previous_date
+                    if timediff != datetime.timedelta(days=1):
+                        for i in range(int(timediff.days)):
+                            cases[date + datetime.timedelta(days=i + 1)] = case_count
                     case_count = int(row[8])
                     cases[date] = case_count
+                    previous_date = date
 
         with open(self.covid_us_data_path) as f:
             reader = csv.reader(f, delimiter=',')
@@ -66,7 +85,6 @@ class Reader:
         total.sort()
         return total
 
-
     def load_deaths_data(self) -> list[tuple[datetime.date, int]]:
         """Return a list of tuples containing dates and North American deaths.
 
@@ -77,6 +95,7 @@ class Reader:
         """
         deaths = {}
         count = 0
+        previous_date = datetime.date(2020, 1, 30)
         with open(self.covid_canada_data_path) as f:
             reader = csv.reader(f, delimiter=',')
             next(reader)  # skip the header
@@ -84,9 +103,14 @@ class Reader:
             for row in reader:
                 if 'Canada' in str(row[1]):
                     date = datetime.date(int(row[3][0:4]), int(row[3][5:7]), int(row[3][8:10]))
+                    timediff = date - previous_date
+                    if timediff != datetime.timedelta(days=1):
+                        for i in range(int(timediff.days)):
+                            deaths[date + datetime.timedelta(days=i + 1)] = death_count
                     death_count = int(row[7])
                     count += death_count
                     deaths[date] = count
+                    previous_date = date
 
         with open(self.covid_us_data_path) as f:
             reader = csv.reader(f, delimiter=',')

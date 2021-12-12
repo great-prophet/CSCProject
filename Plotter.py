@@ -4,7 +4,7 @@ import numpy as np
 
 class Plotter:
     """
-    A system that creates a graph plotting N\normalized cases and deaths against tweet sentiment.
+    A system that creates a graph plotting normalized cases and deaths against tweet sentiment.
     """
 
     def __init__(self) -> None:

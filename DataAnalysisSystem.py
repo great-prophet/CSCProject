@@ -4,9 +4,13 @@ from DataProcessor import DataProcessor
 from Plotter import Plotter
 from Regression import Regression
 
-class DataAnalysisSystem:
 
-    def __init__(self, data_dir_path):
+class DataAnalysisSystem:
+    """
+    A system to analyze the data and graph findings.
+    """
+
+    def __init__(self, data_dir_path) -> None:
 
         # set data csv paths
         self.tweets_data_path = f"{data_dir_path}/covid19_tweets.csv"
@@ -22,7 +26,11 @@ class DataAnalysisSystem:
         self.plt = Plotter()
         self.reg = Regression()
 
-    def run_analysis_full(self):
+    def run_analysis_full(self) -> None:
+        """
+        Returns None. Computes sentiment from clean data, then creates a regression model
+        to graph findings.
+        """
 
         # load all data from reader
         tweets_raw_data = self.reader.load_tweet_data()
@@ -55,7 +63,7 @@ class DataAnalysisSystem:
 
         # plot regression lines
         self.plt.plot_points(*p_deaths)
-        self.plt.plot_line (d_slope, d_intercept)
+        self.plt.plot_line(d_slope, d_intercept)
 
         # set r_sq values
         self.plt.set_r_sq(c_r_sq, d_r_sq)

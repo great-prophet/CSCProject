@@ -1,13 +1,19 @@
 import datetime
 from statistics import mean
 
+
 class DataProcessor:
+    """
+    A system that processes cleaned data by averaging and normalizing the information.
+    """
 
     def __init__(self):
         pass
 
     def average_by_group(self, data: list[tuple[datetime.date, float]]) -> dict[int, float]:
-
+        """
+        Returns a dictionary mapping the date to an average data value.
+        """
         grouped = {}
 
         for date, val in self.normalize_dates(data):
@@ -21,6 +27,9 @@ class DataProcessor:
         return averaged
 
     def normalize_covid_data(self, data: list[tuple[datetime.date, int]]) -> list[tuple[datetime.date, float]]:
+        """
+        Returns a list of tuples containing normalized COVID-19 data.
+        """
         all_vals = [v for d, v in data]
         max_v = max(all_vals)
         min_v = min(all_vals)
@@ -34,7 +43,9 @@ class DataProcessor:
         return norm_data
 
     def normalize_dates(self, data: list[tuple[datetime.date, float]]) -> list[tuple[int, float]]:
-
+        """
+        Returns a list of normalized dates from the cleaned data.
+        """
         norm_data = []
 
         for date, val in data:
@@ -45,7 +56,9 @@ class DataProcessor:
         return norm_data
 
     def merge_data(self, grouped_sentiment_data: dict[int, float], grouped_covid_data: dict[int, float]) -> tuple[list[float], list[float]]:
-
+        """
+        Returns a tuple of lists containing COVID-19 data and the related sentiment data.
+        """
         sentiment_data = []
         covid_data = []
 

@@ -3,7 +3,9 @@ from sklearn.linear_model import LinearRegression
 
 
 class Regression:
-    
+    """
+    A system that creates a simple linear regression model.
+    """
     def simple_regression(self, x_raw: list[int], y_raw: list[int]) -> (float, float, float):
         """Return a tuple with the regression line slope, intercept, and
            coefficient of determination for the data.

@@ -66,7 +66,7 @@ class DataAnalysisSystem:
         self.plt.plot_line (d_reg)
 
         # set r_sq values
-        self.plt.set_r_sq(c_reg.r_sq, d_reg.r_sq)
+        self.plt.set_reg_test(c_reg, d_reg)
 
         self.plt.show()
 

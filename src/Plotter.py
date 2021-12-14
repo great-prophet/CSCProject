@@ -29,11 +29,11 @@ class Plotter:
         y_vals = reg.intercept + reg.slope * x_vals
         plt.plot(x_vals, y_vals, '--')
 
-    def set_r_sq(self, c_r_sq, d_r_sq) -> None:
+    def set_reg_test(self, c_reg: RegressionModelStats, d_reg: RegressionModelStats) -> None:
         """
         Adds a subtitle to the graph containing the cases and deaths r squared.
         """
-        plt.suptitle(f"cases r squared = {c_r_sq}, deaths r squared = {d_r_sq}")
+        plt.suptitle(f"Cases: y = {c_reg.slope:.3f}x + {c_reg.intercept:.3f}, r_sq = {c_reg.r_sq:.3f} \n Deaths: y = {d_reg.slope:.3f}x + {d_reg.intercept:.3f}, r_sq = {d_reg.r_sq:.3f}")
 
     def show(self) -> None:
         """

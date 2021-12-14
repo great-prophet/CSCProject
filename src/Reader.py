@@ -1,6 +1,6 @@
 import csv
 import datetime
-from DataModels import TweetsRaw, CovidStatsRaw
+from src.DataModels import TweetsRaw, CovidStatsRaw
 
 
 class Reader:

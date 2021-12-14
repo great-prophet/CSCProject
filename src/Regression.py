@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.linear_model import LinearRegression
-from DataModels import RegressionModelStats, PointsXYVectors
+from src.DataModels import RegressionModelStats, PointsXYVectors
 
 
 class Regression:

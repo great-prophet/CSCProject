@@ -1,8 +1,8 @@
-from Reader import Reader
-from SentimentProcessor import SentimentProcessor
-from DataProcessor import DataProcessor
-from Plotter import Plotter
-from Regression import Regression
+from src.Reader import Reader
+from src.SentimentProcessor import SentimentProcessor
+from src.DataProcessor import DataProcessor
+from src.Plotter import Plotter
+from src.Regression import Regression
 
 
 class DataAnalysisSystem:
@@ -71,10 +71,3 @@ class DataAnalysisSystem:
         self.plt.show()
 
 
-if __name__ == "__main__":
-
-    data_dir_path = "data"
-
-    das = DataAnalysisSystem(data_dir_path)
-
-    das.run_analysis_full()

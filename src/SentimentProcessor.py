@@ -1,8 +1,6 @@
-import datetime
-
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
-from DataModels import TweetsRaw, StatsNormed
+from src.DataModels import TweetsRaw, StatsNormed
 
 
 class SentimentProcessor:

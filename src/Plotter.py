@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from DataModels import RegressionModelStats, PointsXYVectors
+from src.DataModels import RegressionModelStats, PointsXYVectors
 
 
 class Plotter:

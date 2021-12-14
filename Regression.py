@@ -1,18 +1,18 @@
 import numpy as np
 from sklearn.linear_model import LinearRegression
+from DataModels import RegressionModelStats, PointsXYVectors
 
 
 class Regression:
+
     """
     A system that creates a simple linear regression model.
     """
-    def simple_regression(self, x_raw: list[int], y_raw: list[int]) -> (float, float, float):
-        """Return a tuple with the regression line slope, intercept, and
-           coefficient of determination for the data.
-
+    def simple_regression(self, points: PointsXYVectors) -> RegressionModelStats:
+        """Return ...
         """
-        x = np.array(x_raw).reshape((-1, 1))
-        y = np.array(y_raw)
+        x = np.array(points.x).reshape((-1, 1))
+        y = np.array(points.y)
 
         model = LinearRegression()
         model.fit(x, y)
@@ -21,4 +21,4 @@ class Regression:
         slope = model.coef_[0]
         intercept = model.intercept_
 
-        return (slope, intercept, r_sq)
+        return RegressionModelStats(slope, intercept, r_sq)

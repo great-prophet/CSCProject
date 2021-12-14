@@ -2,6 +2,7 @@ import datetime
 
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
+from DataModels import TweetsRaw, StatsNormed
 
 
 class SentimentProcessor:
@@ -16,18 +17,21 @@ class SentimentProcessor:
 
         self.sia = SentimentIntensityAnalyzer()
 
-    def convert_tweets_to_sentiment(self, tweets_data: list[tuple[datetime.date, str]]) -> list[tuple[datetime.date, float]]:
-        """
-        Returns a list of tuples containing the sentiment data calculated using nltk's sentiment analysis
+
+    def convert_tweets_to_sentiment(self, tweets_data: TweetsRaw) -> StatsNormed:
+        """Returns a list of tuples containing the sentiment data calculated using nltk's sentiment analysis
         model.
-        """
-        sentiment_data = []
+        """  
+        sentiment_data_times = []
+        sentiment_data_stats = []
 
-        for date, text in tweets_data:
+
+        for date, text in zip(tweets_data.times, tweets_data.tweets):
             sentiment_score = self.score_text(text)
-            sentiment_data.append((date, sentiment_score))
+            sentiment_data_times.append(date)
+            sentiment_data_stats.append(sentiment_score)
 
-        return sentiment_data
+        return StatsNormed(sentiment_data_times, sentiment_data_stats)
 
     def score_text(self, text: str) -> float:
         """
@@ -36,14 +40,3 @@ class SentimentProcessor:
         scores = self.sia.polarity_scores(text)
         return scores['compound']
 
-    def test(self) -> None:
-        """
-        A test of the scoring model.
-        """
-        scores = self.sia.polarity_scores("Wow! Hyunjin is so cool.")
-        return scores
-
-
-if __name__ == "__main__":
-    sp = SentimentProcessor()
-    print(sp.test())

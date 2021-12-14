@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from DataModels import RegressionModelStats, PointsXYVectors
 
 
 class Plotter:
@@ -11,19 +12,21 @@ class Plotter:
         plt.xlabel("Normalized cases/deaths")
         plt.ylabel("Tweet Sentiment")
 
-    def plot_points(self, x: float, y: float) -> None:
+
+    def plot_points(self, points: PointsXYVectors) -> None:
         """
         Plots the relevant points on a graph
         """
         plt.scatter(x, y)
 
-    def plot_line(self, slope: float, intercept: float) -> None:
+    def plot_line(self, reg: RegressionModelStats) -> None:
         """
         Plots a line of best fit using the points from the plot_points graph.
         """
+
         axes = plt.gca()
         x_vals = np.array(axes.get_xlim())
-        y_vals = intercept + slope * x_vals
+        y_vals = reg.intercept + reg.slope * x_vals
         plt.plot(x_vals, y_vals, '--')
 
     def set_r_sq(self, c_r_sq, d_r_sq) -> None:

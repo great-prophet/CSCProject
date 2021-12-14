@@ -1,5 +1,6 @@
 import datetime
 from statistics import mean
+from DataModels import *
 
 
 class DataProcessor:
@@ -10,13 +11,15 @@ class DataProcessor:
     def __init__(self):
         pass
 
-    def average_by_group(self, data: list[tuple[datetime.date, float]]) -> dict[int, float]:
+    def average_by_group(self, data: StatsNormed) -> StatsGrouped:
         """
-        Returns a dictionary mapping the date to an average data value.
+        Returns ...
         """
+        
         grouped = {}
+        normed_dates = self.normalize_dates(data)
 
-        for date, val in self.normalize_dates(data):
+        for date, val in zip(normed_dates.times, normed_dates.stats):
             if date in grouped:
                 grouped[date].append(val)
             else:
@@ -24,47 +27,57 @@ class DataProcessor:
 
         averaged = {d: mean(v) for d, v in grouped.items()}
 
-        return averaged
+        return StatsGrouped(averaged)
 
-    def normalize_covid_data(self, data: list[tuple[datetime.date, int]]) -> list[tuple[datetime.date, float]]:
+
+    def normalize_covid_data(self, data: CovidStatsRaw) -> StatsNormed::
         """
-        Returns a list of tuples containing normalized COVID-19 data.
+        Returns ...
         """
         all_vals = [v for d, v in data]
+        
         max_v = max(all_vals)
         min_v = min(all_vals)
 
-        norm_data = []
+        norm_data_times = []
+        norm_data_stats = []
 
-        for date, val in data:
+        for date, val in zip(data.times, data.stats):
             norm_val = (val - min_v) / (max_v - min_v)
-            norm_data.append((date, norm_val))
+            norm_data_times.append(date)
+            norm_data_stats.append(norm_val)
 
-        return norm_data
+        return StatsNormed(norm_data_times, norm_data_stats)
 
-    def normalize_dates(self, data: list[tuple[datetime.date, float]]) -> list[tuple[int, float]]:
+
+    def normalize_dates(self, data: StatsNormed) -> StatsDatesNormed:
         """
-        Returns a list of normalized dates from the cleaned data.
+        Returns ...
         """
-        norm_data = []
+        
+        norm_data_times = []
+        norm_data_stats = []
 
-        for date, val in data:
-            # approximate number of weeks from 2020
-            norm_date = ((date.year - 2020) * 12) + (date.month * 4) + (date.day // 4)
-            norm_data.append((norm_date, val))
+        for date, val in zip(data.times, data.stats):
+            # week number
+            norm_date = (date.month * 4) + (date.day // 4)
+            norm_data_times.append(norm_date)
+            norm_data_stats.append(val)
 
-        return norm_data
+        return StatsDatesNormed(norm_data_times, norm_data_stats)
 
-    def merge_data(self, grouped_sentiment_data: dict[int, float], grouped_covid_data: dict[int, float]) -> tuple[list[float], list[float]]:
+
+    def merge_data(self, grouped_sentiment_data: StatsGrouped, grouped_covid_data: StatsGrouped) -> PointsXYVectors:
         """
         Returns a tuple of lists containing COVID-19 data and the related sentiment data.
         """
+
         sentiment_data = []
         covid_data = []
 
-        for date, val in grouped_covid_data.items():
-            if date in grouped_sentiment_data:
-                sentiment_data.append(grouped_sentiment_data[date])
+        for date, val in grouped_covid_data.timed_stats.items():
+            if date in grouped_sentiment_data.timed_stats:
+                sentiment_data.append(grouped_sentiment_data.timed_stats[date])
                 covid_data.append(val)
 
-        return (covid_data, sentiment_data)
+        return PointsXYVectors(covid_data, sentiment_data)

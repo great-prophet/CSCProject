@@ -54,19 +54,19 @@ class DataAnalysisSystem:
         p_deaths = self.dp.merge_data(n_tweets, n_deaths)
 
         # compute regression model
-        c_slope, c_intercept, c_r_sq = self.reg.simple_regression(*p_cases)
-        d_slope, d_intercept, d_r_sq = self.reg.simple_regression(*p_deaths)
+        c_reg = self.reg.simple_regression(p_cases)
+        d_reg = self.reg.simple_regression(p_deaths)
 
         # plot points
-        self.plt.plot_points(*p_cases)
-        self.plt.plot_line(c_slope, c_intercept)
+        self.plt.plot_points(p_cases)
+        self.plt.plot_line(c_reg)
 
         # plot regression lines
-        self.plt.plot_points(*p_deaths)
-        self.plt.plot_line(d_slope, d_intercept)
+        self.plt.plot_points(p_deaths)
+        self.plt.plot_line (d_reg)
 
         # set r_sq values
-        self.plt.set_r_sq(c_r_sq, d_r_sq)
+        self.plt.set_r_sq(c_reg.r_sq, d_reg.r_sq)
 
         self.plt.show()
 

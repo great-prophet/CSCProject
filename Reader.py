@@ -1,5 +1,6 @@
 import csv
 import datetime
+from DataModels import TweetsRaw, CovidStatsRaw
 
 
 class Reader:
@@ -9,14 +10,15 @@ class Reader:
         self.covid_canada_data_path = covid_canada_data_path
         self.covid_us_data_path = covid_us_data_path
 
-    def load_tweet_data(self) -> list[tuple[datetime.date, str]]:
+    def load_tweet_data(self) -> TweetsRaw:
         """Return a list of tuples containing dates and relevant tweets.
 
         The data in the file is in a csv format with 13 columns. The second column consists of the
         user's location. The ninth column has the date of the tweet. The tenth column has the tweet
         itself.
         """
-        tweets = []
+        tweets_times = []
+        tweets_text = []
         na = ['canada', 'us', 'seattle', 'vancouver', 'toronto', 'california',
               'alabama', 'alaska', 'american samoa', 'arizona', 'arkansas', 'california', 'colorado', 'connecticut',
               'belaware',
@@ -41,10 +43,11 @@ class Reader:
                 if row[1].lower() in na:
                     date = datetime.date(int(row[8][0:4]), int(row[8][5:7]), int(row[8][8:10]))
                     tweet = row[9]
-                    tweets.append((date, tweet))
-        return tweets
+                    tweets_times.append(date)
+                    tweets_text.append(tweet)
+        return TweetsRaw(tweets_times, tweets_text)
 
-    def load_cases_data(self) -> list[tuple[datetime.date, int]]:
+    def load_cases_data(self) -> CovidStatsRaw:
         """Return a list of tuples containing dates and North American case counts.
 
         The data in the files are in a csv format with 40 and 3 columns respectively. In the first file,
@@ -83,9 +86,13 @@ class Reader:
 
         total = [(day, cases[day]) for day in cases]
         total.sort()
-        return total
 
-    def load_deaths_data(self) -> list[tuple[datetime.date, int]]:
+        stats_times = [t[0] for t in total]
+        stats_stats = [t[1] for t in total]
+
+        return CovidStatsRaw(stats_times, stats_stats)
+
+    def load_deaths_data(self) -> CovidStatsRaw:
         """Return a list of tuples containing dates and North American deaths.
 
         The data in the files are in a csv format with 40 and 3 columns respectively. In the first file,
@@ -126,4 +133,8 @@ class Reader:
 
         total = [(day, deaths[day]) for day in deaths]
         total.sort()
-        return total
+
+        stats_times = [t[0] for t in total]
+        stats_stats = [t[1] for t in total]
+
+        return CovidStatsRaw(stats_times, stats_stats)

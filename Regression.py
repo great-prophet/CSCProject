@@ -4,10 +4,12 @@ from DataModels import RegressionModelStats, PointsXYVectors
 
 
 class Regression:
-    
-    def simple_regression(self, points: PointsXYVectors) -> RegressionModelStats:
-        """
 
+    """
+    A system that creates a simple linear regression model.
+    """
+    def simple_regression(self, points: PointsXYVectors) -> RegressionModelStats:
+        """Return ...
         """
         x = np.array(points.x).reshape((-1, 1))
         y = np.array(points.y)

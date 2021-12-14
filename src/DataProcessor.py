@@ -7,8 +7,6 @@ class DataProcessor:
     A system that processes cleaned data by averaging and normalizing the information.
     """
 
-    def __init__(self):
-        pass
 
     def average_by_group(self, data: StatsNormed) -> StatsGrouped:
         """

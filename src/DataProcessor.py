@@ -7,12 +7,10 @@ class DataProcessor:
     A system that processes cleaned data by averaging and normalizing the information.
     """
 
-
     def average_by_group(self, data: StatsNormed) -> StatsGrouped:
         """
         Returns a StatsGrouped object containing the averaged data grouped by time intervals.
         """
-        
         grouped = {}
         normed_dates = self.normalize_dates(data)
 
@@ -25,7 +23,6 @@ class DataProcessor:
         averaged = {d: mean(v) for d, v in grouped.items()}
 
         return StatsGrouped(averaged)
-
 
     def normalize_covid_data(self, data: CovidStatsRaw) -> StatsNormed:
         """
@@ -47,7 +44,6 @@ class DataProcessor:
 
         return StatsNormed(norm_data_times, norm_data_stats)
 
-
     def normalize_dates(self, data: StatsNormed) -> StatsDatesNormed:
         """
         Returns a StatsDatesNormed object containing data with the dates converted to an
@@ -65,8 +61,8 @@ class DataProcessor:
 
         return StatsDatesNormed(norm_data_times, norm_data_stats)
 
-
-    def merge_data(self, grouped_sentiment_data: StatsGrouped, grouped_covid_data: StatsGrouped) -> PointsXYVectors:
+    def merge_data(self, grouped_sentiment_data: StatsGrouped, grouped_covid_data: StatsGrouped) ->\
+            PointsXYVectors:
         """
         Returns a PointsXYVectors object containing COVID-19 data and the related sentiment data.
         """

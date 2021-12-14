@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import date
 
+
 @dataclass
 class TweetsRaw:
     """
@@ -86,11 +87,12 @@ class PointsXYVectors:
     x: list[float]
     y: list[float]
 
+
 @dataclass
 class RegressionModelStats:
     """
     A custom data type that represents the slope, intercept, and r_sq values of a regressoin model.
-    
+
     Representation Invariants:
         - 0 <= r_sq <= 1
     """

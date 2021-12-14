@@ -10,7 +10,7 @@ class DataAnalysisSystem:
     A system to analyze the data and graph findings.
     """
 
-    def __init__(self, data_dir_path) -> None:
+    def __init__(self, data_dir_path: str) -> None:
 
         # set data csv paths
         self.tweets_data_path = f"{data_dir_path}/covid19_tweets.csv"
@@ -67,7 +67,7 @@ class DataAnalysisSystem:
 
         # plot regression lines
         self.plt.plot_points(p_deaths)
-        self.plt.plot_line (d_reg)
+        self.plt.plot_line(d_reg)
 
         # set r_sq values
         self.plt.set_reg_test(c_reg, d_reg)

@@ -9,8 +9,8 @@ class Plotter:
     """
 
     def __init__(self) -> None:
-        plt.xlabel("Normalized cases/deaths")
-        plt.ylabel("Tweet Sentiment")
+        plt.xlabel("Normalized Cases/Deaths", fontsize=18)
+        plt.ylabel("Average Weekly Sentiment on Twitter", fontsize=18)
 
 
     def plot_points(self, points: PointsXYVectors) -> None:
@@ -33,7 +33,9 @@ class Plotter:
         """
         Adds a subtitle to the graph containing the cases and deaths r squared.
         """
-        plt.suptitle(f"Cases: y = {c_reg.slope:.3f}x + {c_reg.intercept:.3f}, r_sq = {c_reg.r_sq:.3f} \n Deaths: y = {d_reg.slope:.3f}x + {d_reg.intercept:.3f}, r_sq = {d_reg.r_sq:.3f}")
+        plt.title("Normalized Cases/Deaths Versus Average Weekly Sentiment on Twitter", fontsize=22, y=1.02)
+        plt.suptitle(f"Cases (Orange): y = {c_reg.slope:.3f}x + {c_reg.intercept:.3f}, $R^2$ = {c_reg.r_sq:.3f} \n Deaths (Blue): y = {d_reg.slope:.3f}x + {d_reg.intercept:.3f}, $R^2$ = {d_reg.r_sq:.3f}", y=0.865, x=0.77, fontsize=18)
+
 
     def show(self) -> None:
         """

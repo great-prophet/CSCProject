@@ -11,7 +11,7 @@ class Reader:
         self.covid_us_data_path = covid_us_data_path
 
     def load_tweet_data(self) -> TweetsRaw:
-        """Return a list of tuples containing dates and relevant tweets.
+        """Return a TweetsRaw object containing dates and relevant tweets.
 
         The data in the file is in a csv format with 13 columns. The second column consists of the
         user's location. The ninth column has the date of the tweet. The tenth column has the tweet
@@ -48,7 +48,7 @@ class Reader:
         return TweetsRaw(tweets_times, tweets_text)
 
     def load_cases_data(self) -> CovidStatsRaw:
-        """Return a list of tuples containing dates and North American case counts.
+        """Return a CovidStatsRaw object containing dates and North American case counts.
 
         The data in the files are in a csv format with 40 and 3 columns respectively. In the first file,
         the second column consists of the region's name and the fourth column has the date. The ninth
@@ -93,7 +93,7 @@ class Reader:
         return CovidStatsRaw(stats_times, stats_stats)
 
     def load_deaths_data(self) -> CovidStatsRaw:
-        """Return a list of tuples containing dates and North American deaths.
+        """Return a CovidStatsRaw object containing dates and North American deaths.
 
         The data in the files are in a csv format with 40 and 3 columns respectively. In the first file,
         the second column consists of the region's name and the fourth column has the date. The eighth

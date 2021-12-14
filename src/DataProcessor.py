@@ -12,7 +12,7 @@ class DataProcessor:
 
     def average_by_group(self, data: StatsNormed) -> StatsGrouped:
         """
-        Returns ...
+        Returns a StatsGrouped object containing the averaged data grouped by time intervals.
         """
         
         grouped = {}
@@ -31,7 +31,8 @@ class DataProcessor:
 
     def normalize_covid_data(self, data: CovidStatsRaw) -> StatsNormed:
         """
-        Returns ...
+        Returns a StatsNormed object containing data with normalized covid data with
+        values between 0 and 1.
         """
         all_vals = [v for d, v in zip(data.times, data.stats)]
         
@@ -51,7 +52,8 @@ class DataProcessor:
 
     def normalize_dates(self, data: StatsNormed) -> StatsDatesNormed:
         """
-        Returns ...
+        Returns a StatsDatesNormed object containing data with the dates converted to an
+        integer representation by weeks.
         """
         
         norm_data_times = []
@@ -68,7 +70,7 @@ class DataProcessor:
 
     def merge_data(self, grouped_sentiment_data: StatsGrouped, grouped_covid_data: StatsGrouped) -> PointsXYVectors:
         """
-        Returns a tuple of lists containing COVID-19 data and the related sentiment data.
+        Returns a PointsXYVectors object containing COVID-19 data and the related sentiment data.
         """
 
         sentiment_data = []

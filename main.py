@@ -1,9 +1,16 @@
-from src.DataAnalysisSystem import DataAnalysisSystem
+# This is a sample Python script.
 
-if __name__ == "__main__":
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-    data_dir_path = "data"
 
-    das = DataAnalysisSystem(data_dir_path)
+def print_hi(name):
+    # Use a breakpoint in the code line below to debug your script.
+    print(f'Hi, {name}')  # Press Ctrl+8 to toggle the breakpoint.
 
-    das.run_analysis_full()
+
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    print_hi('PyCharm')
+
+# See PyCharm help at https://www.jetbrains.com/help/pycharm/

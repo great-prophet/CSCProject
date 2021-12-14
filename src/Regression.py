@@ -9,7 +9,8 @@ class Regression:
     A system that creates a simple linear regression model.
     """
     def simple_regression(self, points: PointsXYVectors) -> RegressionModelStats:
-        """Return ...
+        """Return a RegressionModelStats object containing the result of a
+        simple linear regression on the given points.
         """
         x = np.array(points.x).reshape((-1, 1))
         y = np.array(points.y)

@@ -17,7 +17,7 @@ class SentimentProcessor:
 
 
     def convert_tweets_to_sentiment(self, tweets_data: TweetsRaw) -> StatsNormed:
-        """Returns a list of tuples containing the sentiment data calculated using nltk's sentiment analysis
+        """Returns a StatsNormed object containing the sentiment data calculated using nltk's sentiment analysis
         model.
         """  
         sentiment_data_times = []

@@ -17,7 +17,7 @@ class Plotter:
         """
         Plots the relevant points on a graph
         """
-        plt.scatter(x, y)
+        plt.scatter(points.x, points.y)
 
     def plot_line(self, reg: RegressionModelStats) -> None:
         """

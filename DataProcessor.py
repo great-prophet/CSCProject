@@ -30,11 +30,11 @@ class DataProcessor:
         return StatsGrouped(averaged)
 
 
-    def normalize_covid_data(self, data: CovidStatsRaw) -> StatsNormed::
+    def normalize_covid_data(self, data: CovidStatsRaw) -> StatsNormed:
         """
         Returns ...
         """
-        all_vals = [v for d, v in data]
+        all_vals = [v for d, v in zip(data.times, data.stats)]
         
         max_v = max(all_vals)
         min_v = min(all_vals)

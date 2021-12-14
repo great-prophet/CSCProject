@@ -32,10 +32,14 @@ class DataAnalysisSystem:
         to graph findings.
         """
 
+        print("Loading data from csv...")
+
         # load all data from reader
         tweets_raw_data = self.reader.load_tweet_data()
         cases_data = self.reader.load_cases_data()
         deaths_data = self.reader.load_deaths_data()
+
+        print("Processing...")
 
         # compute tweets sentiment
         tweets_sentiment_data = self.sp.convert_tweets_to_sentiment(tweets_raw_data)
